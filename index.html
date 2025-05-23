@@ -5,12 +5,54 @@
   <title>CatScript v3.2</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
   <style>
-    body { font-family: sans-serif; padding: 1em; background: #fff8f0; }
-    #editor { height: 240px; border: 1px solid #ccc; background: #fffefc; }
-    canvas { border: 2px solid #333; background: #ffffff; margin-top: 10px; }
-    button { margin-top: 10px; margin-right: 10px; padding: 10px 15px; font-size: 14px; cursor: pointer; }
-    h1 { color: #3a3a3a; }
-    #console { background: #222; color: #0f0; padding: 10px; margin-top: 10px; height: 100px; overflow-y: auto; font-family: monospace; white-space: pre-wrap; }
+    body {
+      font-family: sans-serif;
+      padding: 1em;
+      background: #fff8f0;
+      font-size: 13px;
+    }
+    #editor {
+      width: 80vw;
+      height: 600px;
+      border: 2px solid #ccc;
+      background: #fffefc;
+      margin-bottom: 10px;
+    }
+    .CodeMirror {
+      height: 100% !important;
+      font-size: 14px;
+    }
+    canvas {
+      border: 1px solid #333;
+      background: #ffffff;
+      margin-top: 8px;
+      width: 400px;
+      height: 280px;
+    }
+    button {
+      margin-top: 8px;
+      margin-right: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    h1 {
+      color: #3a3a3a;
+      font-size: 20px;
+      margin-bottom: 0.5em;
+    }
+    #console {
+      background: #222;
+      color: #0f0;
+      padding: 8px;
+      margin-top: 8px;
+      height: 90px;
+      overflow-y: auto;
+      font-family: monospace;
+      white-space: pre-wrap;
+      width: 80vw;
+      font-size: 12px;
+    }
   </style>
 </head>
 <body>
@@ -20,14 +62,13 @@
 // meow color = "hotpink";
 // DrawPaw(200, 150, 40, color);</textarea>
   <div id="editor"></div>
-  <button onclick="runCatScript()">▶️ Run CatScript</button>
-  <button onclick="exportCode()">💾 Export Code</button>
-  <button onclick="importCode()">📂 Import Code</button>
+  <button onclick="runCatScript()">▶️ Run</button>
+  <button onclick="exportCode()">💾 Export</button>
+  <button onclick="importCode()">📂 Import</button>
   <input type="file" id="fileInput" style="display: none" />
   <canvas id="catCanvas" width="500" height="350"></canvas>
   <div id="console"></div>
 
-  <!-- CodeMirror -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
 
@@ -43,6 +84,7 @@
       theme: 'default',
       lineNumbers: true
     });
+    editor.setSize("100%", "100%");
 
     function logToConsole(message) {
       consoleEl.textContent += message + "\n";
@@ -60,7 +102,6 @@
       ctx.fill();
     }
 
-    // 50+ CatScript commands mapped to JS
     const catWords = {
       "meow": "let", "purr": "logToConsole", "scratch": "function",
       "DrawPaw": "DrawPaw", "CleanWhiskers": "CleanWhiskers",
